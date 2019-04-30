@@ -25,5 +25,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+
 syntax on
-color dracula
+colorscheme dracula

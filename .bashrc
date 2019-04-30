@@ -130,4 +130,3 @@ unset __conda_setup
 # <<< conda init <<<
 
 zsh
-alias config='/usr/bin/git --git-dir=/home/jtcies/.config/ --work-tree=/home/jtcies'

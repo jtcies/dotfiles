@@ -27,3 +27,5 @@ call plug#end()
 
 syntax on
 colorscheme dracula
+
+set laststatus=2

@@ -97,3 +97,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias config='/usr/bin/git --git-dir=/home/jtcies/.config/ --work-tree=/home/jtcies'
+
+alias nvim='~/neovim/bin/nvim.appimage'

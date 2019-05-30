@@ -98,4 +98,13 @@ source $ZSH/oh-my-zsh.sh
 #
 alias config='/usr/bin/git --git-dir=/home/jtcies/.config/ --work-tree=/home/jtcies'
 
-alias nvim='~/neovim/bin/nvim.appimage'
+iswsl() {
+
+	if uname -a | grep 'Microsoft'
+	then 
+		return 0
+	else
+		return 1
+	fi
+}
+if iswsl; then echo 'wsl'; else alias nvim='~/neovim/bin/nvim.appimage'; fi

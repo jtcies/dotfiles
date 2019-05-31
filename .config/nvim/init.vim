@@ -56,3 +56,4 @@ map <leader>f :Goyo
 
 set number
 set relativenumber
+set timeoutlen=1000 ttimeoutlen=0

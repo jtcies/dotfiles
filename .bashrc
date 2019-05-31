@@ -130,3 +130,5 @@ unset __conda_setup
 # <<< conda init <<<
 
 zsh
+
+

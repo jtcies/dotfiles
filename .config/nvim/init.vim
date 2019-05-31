@@ -12,3 +12,5 @@ Plug 'jalvesaq/Nvim-R'
 
 " Initialize plugin system
 call plug#end()
+
+set timeoutlen=1000 ttimeoutlen=0

@@ -14,3 +14,5 @@ Plug 'jalvesaq/Nvim-R'
 call plug#end()
 
 set timeoutlen=1000 ttimeoutlen=0
+
+au BufRead,BufNewFile *.md setlocal textwidth=80

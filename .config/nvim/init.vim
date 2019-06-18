@@ -52,8 +52,15 @@ set expandtab
 let g:rmd_fenced_languages = ['r', 'python']
 let g:markdown_fenced_languages = ['r', 'python']
 
-map <leader>f :Goyo
+map <leader>f :Goyo <CR>
 
 set number
 set relativenumber
 set timeoutlen=1000 ttimeoutlen=0
+
+set mouse=a
+
+let R_path='/usr/bin/'
+
+let g:python3_host_prog='/home/jtcies/miniconda3/bin/python3'
+

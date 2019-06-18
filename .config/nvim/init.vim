@@ -27,6 +27,7 @@ Plug 'ncm2/ncm2-ultisnips'
 
 Plug 'junegunn/goyo.vim'
 
+" context switching between vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
 
 " Initialize plugin system
@@ -35,7 +36,7 @@ call plug#end()
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" IMPORTANT: :help Ncm2PopupOpen for more information
+" help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 
 " Shortcut for R's assignment operator: 0 turns it off; 1 assigns underscore; 2 assigns two underscores
@@ -52,10 +53,12 @@ set expandtab
 let g:rmd_fenced_languages = ['r', 'python']
 let g:markdown_fenced_languages = ['r', 'python']
 
-map <leader>f :Goyo
+map <leader>f :Goyo <CR>
 
 set number
 set relativenumber
 set timeoutlen=1000 ttimeoutlen=0
 
 au BufRead,BufNewFile *.md setlocal textwidth=80
+
+set mouse=a

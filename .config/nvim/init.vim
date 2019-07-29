@@ -31,6 +31,9 @@ Plug 'junegunn/goyo.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'kien/ctrlp.vim'
+
+Plug 'tpope/vim-dadbod'
 
 " Initialize plugin system
 call plug#end()
@@ -73,3 +76,4 @@ set mouse=a
 
 syntax on
 color dracula
+let g:sw_exe='~/sqlworkbench/sqlwbconsol.sh'

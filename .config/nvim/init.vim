@@ -61,6 +61,12 @@ set number
 set relativenumber
 set timeoutlen=1000 ttimeoutlen=0
 
+set mouse=a
+
+let R_path='/usr/bin/'
+
+let g:python3_host_prog='/home/jtcies/miniconda3/bin/python3'
+
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 set mouse=a

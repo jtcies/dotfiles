@@ -110,3 +110,5 @@ iswsl() {
 if iswsl; then echo 'wsl'; else alias nvim='~/neovim/bin/nvim.appimage'; fi
 
 KEYTIMEOUT=1
+
+alias R='/usr/bin/R'

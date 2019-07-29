@@ -32,6 +32,8 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'kien/ctrlp.vim'
 
+Plug 'tpope/vim-dadbod'
+
 " Initialize plugin system
 call plug#end()
 
@@ -70,3 +72,5 @@ let g:python3_host_prog='/home/jtcies/miniconda3/bin/python3'
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 set mouse=a
+
+let g:sw_exe='~/sqlworkbench/sqlwbconsol.sh'

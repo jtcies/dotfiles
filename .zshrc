@@ -107,7 +107,7 @@ iswsl() {
 		return 1
 	fi
 }
-if iswsl; then echo 'wsl'; else alias nvim='~/neovim/bin/nvim.appimage'; fi
+if iswsl; then alias nvim='~/neovim/bin/squashfs-root/usr/bin/nvim'; else alias nvim='~/neovim/bin/nvim.appimage'; fi
 
 KEYTIMEOUT=1
 

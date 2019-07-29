@@ -30,6 +30,8 @@ Plug 'junegunn/goyo.vim'
 " context switching between vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'kien/ctrlp.vim'
+
 " Initialize plugin system
 call plug#end()
 

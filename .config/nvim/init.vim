@@ -30,6 +30,8 @@ Plug 'junegunn/goyo.vim'
 " context switching between vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'dracula/vim', { 'as': 'dracula' }
+
 " Initialize plugin system
 call plug#end()
 
@@ -68,3 +70,6 @@ let g:python3_host_prog='/home/jtcies/miniconda3/bin/python3'
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 set mouse=a
+
+syntax on
+color dracula

@@ -63,6 +63,7 @@ ZSH_THEME="theunraveler"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
+plugins=(zsh-autosuggestions)
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 

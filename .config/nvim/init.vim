@@ -31,9 +31,14 @@ Plug 'junegunn/goyo.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'tpope/vim-dadbod'
+
+Plug 'Yggdroot/indentLine'
+
+Plug 'airblade/vim-gitgutter'
+
 
 " Initialize plugin system
 call plug#end()
@@ -77,3 +82,13 @@ set mouse=a
 syntax on
 color dracula
 let g:sw_exe='~/sqlworkbench/sqlwbconsol.sh'
+
+let g:indentLine_enabled = 1
+let g:indentLine_char = "⟩"
+
+nnoremap <Leader>t :CtrlP<CR>
+
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts=1
+set laststatus=2
+

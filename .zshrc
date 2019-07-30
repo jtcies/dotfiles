@@ -62,11 +62,7 @@ ZSH_THEME="theunraveler"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	git
-	zsh-syntax-highlighting
-	zsh-autosuggestions
-	)
+
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
@@ -112,3 +108,22 @@ if iswsl; then alias nvim='~/neovim/bin/squashfs-root/usr/bin/nvim'; else alias 
 KEYTIMEOUT=1
 
 alias R='/usr/bin/R'
+
+autoload colors zsh/terminfo
+colors
+
+if [ "$TMUX" = "" ]; then tmux; fi
+
+setopt auto_cd
+
+setopt correctall
+alias git status='nocorrect git status'
+
+source ~/antigen.zsh
+
+antigen use oh-my-zsh
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle git
+

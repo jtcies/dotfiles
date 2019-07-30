@@ -39,6 +39,7 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'airblade/vim-gitgutter'
 
+Plug 'vim-airline/vim-airline'
 
 " Initialize plugin system
 call plug#end()
@@ -91,4 +92,11 @@ nnoremap <Leader>t :CtrlP<CR>
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
 set laststatus=2
+
+let g:rout_follow_colorscheme = 1
+let g:Rout_more_colors = 1
+let g:LanguageClient_serverCommands = {
+    \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
+    \ }
+
 

@@ -39,7 +39,7 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -82,6 +82,10 @@ set mouse=a
 
 syntax on
 color dracula
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
 let g:sw_exe='~/sqlworkbench/sqlwbconsol.sh'
 
 let g:indentLine_enabled = 1
@@ -89,8 +93,6 @@ let g:indentLine_char = "⟩"
 
 nnoremap <Leader>t :CtrlP<CR>
 
-let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=1
 set laststatus=2
 
 let g:rout_follow_colorscheme = 1
@@ -99,4 +101,5 @@ let g:LanguageClient_serverCommands = {
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ }
 
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
 

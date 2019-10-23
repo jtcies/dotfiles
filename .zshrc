@@ -108,7 +108,7 @@ if iswsl; then alias nvim='~/neovim/bin/squashfs-root/usr/bin/nvim'; else alias 
 
 KEYTIMEOUT=1
 
-alias R='/usr/bin/R'
+alias R='/usr/local/lib/R/bin/R'
 
 autoload colors zsh/terminfo
 colors

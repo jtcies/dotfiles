@@ -72,9 +72,14 @@ set timeoutlen=1000 ttimeoutlen=0
 
 set mouse=a
 
-let R_path='/usr/bin/'
+let R_path='/usr/local/lib/R'
+let R_app = "radian"
+let R_cmd = "R"
+let R_hl_term = 0
+let R_args = []  " if you had set any
+let R_bracketed_paste = 1
 
-let g:python3_host_prog='/home/jtcies/miniconda3/bin/python3'
+let g:python3_host_prog='/usr/bin/python3'
 
 au BufRead,BufNewFile *.md setlocal textwidth=80
 

@@ -31,7 +31,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'tpope/vim-dadbod'
 
@@ -40,6 +39,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'itchyny/lightline.vim'
+
+Plug 'vim-scripts/dbext.vim'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+Plug 'tpope/vim-surround'
 
 " Initialize plugin system
 call plug#end()
@@ -65,6 +70,7 @@ let g:rmd_fenced_languages = ['r', 'python']
 let g:markdown_fenced_languages = ['r', 'python']
 
 map <leader>f :Goyo <CR>
+map <leader>nt :NERDTree <CR>
 
 set number
 set relativenumber
@@ -73,11 +79,6 @@ set timeoutlen=1000 ttimeoutlen=0
 set mouse=a
 
 let R_path='/usr/local/lib/R'
-let R_app = "radian"
-let R_cmd = "R"
-let R_hl_term = 0
-let R_args = []  " if you had set any
-let R_bracketed_paste = 1
 
 let g:python3_host_prog='/usr/bin/python3'
 
@@ -88,7 +89,7 @@ set mouse=a
 syntax on
 color dracula
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'dracula'
       \ }
 
 let g:sw_exe='~/sqlworkbench/sqlwbconsol.sh'
@@ -106,5 +107,21 @@ let g:LanguageClient_serverCommands = {
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ }
 
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
+" auto commands for specific data analysis files
+autocmd FileType r,rmd,python set colorcolumn=80
+autocmd TermOpen * setlocal norelativenumber
+autocmd TermOpen * setlocal nonumber
+
+let R_rconsole_width = 0
+let R_rconsole_height = 20
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+set cursorline
+
+let R_openhtml = 0
+
+" close vim if NT is the only window left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 

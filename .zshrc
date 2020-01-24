@@ -113,8 +113,6 @@ alias R='/usr/local/lib/R/bin/R'
 autoload colors zsh/terminfo
 colors
 
-if [ "$TMUX" = "" ]; then tmux; fi
-
 setopt auto_cd
 
 setopt correctall
@@ -128,3 +126,5 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle git
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

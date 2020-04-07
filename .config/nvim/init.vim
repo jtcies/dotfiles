@@ -33,15 +33,19 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'roxma/nvim-yarp'
     Plug 'jalvesaq/Nvim-R'
     Plug 'gaalcaras/ncm-R'
+    
+    " vim wiki
+    Plug 'vimwiki/vimwiki'
 
 " Initialize plugin system
 call plug#end()
 
 " PLUGIN OPTIONS --------------------------------
-
+" vimwiki plugins
+let g:vimwiki_list = [{'path': '~/jtcwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 " close vim if NT is the only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
@@ -72,17 +76,30 @@ let g:lightline = {
 
 " KEYMAPS -----------------------------
 
+" map leader and localleader to space
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
+
 " leader-f Goyo
-map <leader>f :Goyo <CR>
+map <silent><leader>f :Goyo <CR>
 
 " leader-nt Nerdtree
-map <leader>nt :NERDTree <CR>
+map <silent><leader>nt :NERDTree <CR>
 
 " use esc to enter normal mode in the terminal
-tnoremap <Esc> <C-\><C-n> 
+tnoremap <Esc> <C-\><C-n>
+
+" pipe for R functions
+inoremap <A-M>  %>%
+
+" mark a todo list item done
+" default is ctrl-space but that is used by tmux in my config
+" use in normal or visual mode
+map <Leader>tt <Plug>VimwikiToggleListItem
 
 " OTHER OPTIONS -----------------------
 
+filetype plugin on
 " fix indents
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -94,6 +111,8 @@ set expandtab
 " indenting
 set autoindent
 set smartindent
+
+set nocompatible 
 
 " turn mouse on
 set mouse=a

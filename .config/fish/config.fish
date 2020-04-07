@@ -6,3 +6,6 @@ alias nvim='/usr/local/bin/neovim/nvim.appimage'
 
 # promt for fish/pure
 set -g pure_symbol_prompt ">"
+
+# add node to path
+set PATH /usr/local/bin/nodejs/node-v12.16.1-linux-x64 $PATH

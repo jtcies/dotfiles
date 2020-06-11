@@ -25,9 +25,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'chrisbra/csv.vim'
 
-    " sql
-    Plug 'vim-scripts/dbext.vim'
-
     " r and autcompletion
     Plug 'ncm2/ncm2'
     Plug 'roxma/nvim-yarp'
@@ -63,7 +60,9 @@ let g:markdown_fenced_languages = ['r', 'python']
 let g:rmd_fenced_languages = ['r', 'python']
 
 " THEME and STYLE ---------------------------
-
+let g:dracula_colorterm = 0 
+set t_Co=256
+set termguicolors
 set number
 set relativenumber
 set timeoutlen=1000 ttimeoutlen=0
@@ -96,6 +95,10 @@ inoremap <A-M>  %>%
 " default is ctrl-space but that is used by tmux in my config
 " use in normal or visual mode
 map <Leader>tt <Plug>VimwikiToggleListItem
+
+" execute python file in termial
+autocmd filetype python nnoremap <silent><leader>ae :CocCommand python.execInTerminal<CR>
+autocmd filetype python vnoremap <silent><leader>se :CocCommand python.execSelectionInTerminal<CR>
 
 " OTHER OPTIONS -----------------------
 

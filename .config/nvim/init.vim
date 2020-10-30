@@ -16,6 +16,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
     " python autocompletion
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'deoplete-plugins/deoplete-jedi'
     
     Plug 'chrisbra/csv.vim'
@@ -57,6 +58,10 @@ let g:rmd_fenced_languages = ['r', 'python']
 " split r console and editor vertically
 let R_rconsole_width = 75                                                                                                                                      
 let R_min_editor_width = 80
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
 
 " THEME and STYLE ---------------------------
 let g:dracula_colorterm = 0 

@@ -15,14 +15,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-    " lsp
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+    " python autocompletion
+    Plug 'deoplete-plugins/deoplete-jedi'
+    
     Plug 'chrisbra/csv.vim'
 
     " r and autcompletion
@@ -58,6 +53,10 @@ let g:python3_host_prog='/usr/bin/python3'
 " use r and python is rmd chunks
 let g:markdown_fenced_languages = ['r', 'python']
 let g:rmd_fenced_languages = ['r', 'python']
+
+" split r console and editor vertically
+let R_rconsole_width = 75                                                                                                                                      
+let R_min_editor_width = 80
 
 " THEME and STYLE ---------------------------
 let g:dracula_colorterm = 0 
@@ -96,10 +95,6 @@ inoremap <A-M>  %>%
 " use in normal or visual mode
 map <Leader>tt <Plug>VimwikiToggleListItem
 
-" execute python file in termial
-autocmd filetype python nnoremap <silent><leader>ae :CocCommand python.execInTerminal<CR>
-autocmd filetype python vnoremap <silent><leader>se :CocCommand python.execSelectionInTerminal<CR>
-
 " OTHER OPTIONS -----------------------
 
 filetype plugin on
@@ -119,4 +114,7 @@ set nocompatible
 
 " turn mouse on
 set mouse=a
+
+" sign column messes up cursor, turning off for now
+set signcolumn=no
 

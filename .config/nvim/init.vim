@@ -1,81 +1,59 @@
-" INSTALL PLUGINS ------------------
-
+" install plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
-	Plug 'scrooloose/nerdtree'
-
-	Plug 'junegunn/goyo.vim'
-	
-	" context switching between vim and tmux
+    " theme
+    Plug 'dracula/vim', { 'as': 'dracula' }
+    
+    " context switching between vim and tmux
 	Plug 'christoomey/vim-tmux-navigator'
 
-	Plug 'dracula/vim', { 'as': 'dracula' }
+    " status bar
 
-	Plug 'itchyny/lightline.vim'
-
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-    " python autocompletion
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'deoplete-plugins/deoplete-jedi'
-    
-    Plug 'chrisbra/csv.vim'
-
-    " r and autcompletion
+    " autcompletion
     Plug 'ncm2/ncm2'
     Plug 'roxma/nvim-yarp'
-    Plug 'jalvesaq/Nvim-R'
-    Plug 'gaalcaras/ncm-R'
-    
-    " vim wiki
-    Plug 'vimwiki/vimwiki'
+    Plug 'jalvesaq/Nvim-R' " r
+    Plug 'gaalcaras/ncm-R' " r
+    Plug 'ncm2/ncm2-jedi' " python
+    Plug 'ncm2/ncm2-bufword' " words in buffer
+    Plug 'ncm2/ncm2-path' " path
+
+    " repl
+    Plug 'jpalardy/vim-slime'
+
+    " linting
+    Plug 'dense-analysis/ale'
 
 " Initialize plugin system
 call plug#end()
 
 " PLUGIN OPTIONS --------------------------------
-" vimwiki plugins
-let g:vimwiki_list = [{'path': '~/jtcwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-" close vim if NT is the only window left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 
+let R_path='/Library/Frameworks/R.framework/Versions/Current/Resources/bin'
+
 " use two underscores for assignment operator
 let R_assign = 2
 
-" set python3 location for nvim-yarp/ncm
-let g:python3_host_prog='/usr/bin/python3'
-
-" use r and python is rmd chunks
-let g:markdown_fenced_languages = ['r', 'python']
-let g:rmd_fenced_languages = ['r', 'python']
-
-" split r console and editor vertically
-let R_rconsole_width = 75                                                                                                                                      
-let R_min_editor_width = 80
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
+" use neovim termianl with vim slime
+let g:slime_target = "neovim"
 
 " THEME and STYLE ---------------------------
 let g:dracula_colorterm = 0 
-set t_Co=256
-set termguicolors
-set number
-set relativenumber
-set timeoutlen=1000 ttimeoutlen=0
-
 syntax on
 color dracula
 let g:lightline = {
       \ 'colorscheme': 'dracula'
       \ }
+set t_Co=256
+set termguicolors
+set number
+set relativenumber
+
 
 " KEYMAPS -----------------------------
 
@@ -83,24 +61,21 @@ let g:lightline = {
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
-" leader-f Goyo
-map <silent><leader>f :Goyo <CR>
+let g:slime_no_mappings = 1 " remove default vim-slime mappings
+xmap <leader>sr <Plug>SlimeRegionSend
+nmap <leader>sr <Plug>SlimeParagraphSend
+nmap <c-c>v     <Plug>SlimeConfig
 
-" leader-nt Nerdtree
-map <silent><leader>nt :NERDTree <CR>
-
-" use esc to enter normal mode in the terminal
+" use escape to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
 
-" pipe for R functions
-inoremap <A-M>  %>%
 
-" mark a todo list item done
-" default is ctrl-space but that is used by tmux in my config
-" use in normal or visual mode
-map <Leader>tt <Plug>VimwikiToggleListItem
 
-" OTHER OPTIONS -----------------------
+" other settings ------------------
+set nocompatible 
+
+" turn mouse on
+set mouse=a
 
 filetype plugin on
 " fix indents
@@ -114,12 +89,3 @@ set expandtab
 " indenting
 set autoindent
 set smartindent
-
-set nocompatible 
-
-" turn mouse on
-set mouse=a
-
-" sign column messes up cursor, turning off for now
-set signcolumn=no
-

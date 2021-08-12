@@ -29,18 +29,48 @@ set completeopt=menuone,noselect
 
 lua << EOF
 -- language servers
+
+-- R
+-- install.packages("languageserver")
 require'lspconfig'.r_language_server.setup{}
 
--- handling diagnostics
+-- Python
+-- pipx install jedi-language-server
+require'lspconfig'.jedi_language_server.setup{}
+
+-- diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
   signs = true,
   underline = true,
   update_in_insert = false,
 })
+
+function PrintDiagnostics(opts, bufnr, line_nr, client_id)
+  opts = opts or {}
+
+  bufnr = bufnr or 0
+  line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
+
+  local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr, line_nr, opts, client_id)
+  if vim.tbl_isempty(line_diagnostics) then return end
+
+  local diagnostic_message = ""
+  for i, diagnostic in ipairs(line_diagnostics) do
+    diagnostic_message = diagnostic_message .. string.format("%d: %s", i, diagnostic.message or "")
+    print(diagnostic_message)
+    if i ~= #line_diagnostics then
+      diagnostic_message = diagnostic_message .. "\n"
+    end
+  end
+  vim.api.nvim_echo({{diagnostic_message, "Normal"}}, false, {})
+end
+
+vim.cmd [[ autocmd CursorHold * lua PrintDiagnostics() ]]
+
 EOF
 
-" https://github.com/hrsh7th/nvim-compe/blob/master/doc/compe.txt
+"https://github.com/hrsh7th/nvim-compe/blob/master/doc/compe.txt
 let g:compe = {}
 let g:compe.enabled = v:true
 let g:compe.autocomplete = v:false

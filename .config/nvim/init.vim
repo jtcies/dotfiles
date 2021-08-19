@@ -7,20 +7,32 @@ call plug#begin('~/.local/share/nvim/plugged')
     " status bar
     Plug 'itchyny/lightline.vim'
 
-    " lsp and config
+    " lsp, completion, highlighting
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-compe'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+    " fuzzy finder
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
     " repl
-    Plug 'jpalardy/vim-slime'
+    Plug 'kassio/neoterm'
+
+    "sql
+    Plug 'tpope/vim-dadbod'
+
+    " git
+    Plug 'tpope/vim-fugitive'
+
+    " others
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
 
 " Initialize plugin system
 call plug#end()
 
 " PLUGIN OPTIONS --------------------------------
-" use neovim termianl with vim slime
-let g:slime_target = "neovim"
-
 " autocompletion
 set completeopt=menuone,noselect
 
@@ -28,8 +40,7 @@ set completeopt=menuone,noselect
 " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
 
 lua << EOF
--- language servers
-
+local nvim_lsp = require('lspconfig')
 -- R
 -- install.packages("languageserver")
 require'lspconfig'.r_language_server.setup{}
@@ -46,30 +57,49 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   update_in_insert = false,
 })
 
-function PrintDiagnostics(opts, bufnr, line_nr, client_id)
-  opts = opts or {}
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  bufnr = bufnr or 0
-  line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
 
-  local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr, line_nr, opts, client_id)
-  if vim.tbl_isempty(line_diagnostics) then return end
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', '<space>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-  local diagnostic_message = ""
-  for i, diagnostic in ipairs(line_diagnostics) do
-    diagnostic_message = diagnostic_message .. string.format("%d: %s", i, diagnostic.message or "")
-    print(diagnostic_message)
-    if i ~= #line_diagnostics then
-      diagnostic_message = diagnostic_message .. "\n"
-    end
-  end
-  vim.api.nvim_echo({{diagnostic_message, "Normal"}}, false, {})
 end
 
-vim.cmd [[ autocmd CursorHold * lua PrintDiagnostics() ]]
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'r_language_server', 'jedi_language_server' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+
+--tresitter
+require'nvim-treesitter.configs'.setup {
+ensure_installed = {'r', 'python'}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    additional_vim_regex_highlighting = false,
+  }
+}
 
 EOF
 
+" enable autcompletion
 "https://github.com/hrsh7th/nvim-compe/blob/master/doc/compe.txt
 let g:compe = {}
 let g:compe.enabled = v:true
@@ -81,6 +111,7 @@ let g:compe.source = {
     \ }
 
 " THEME and STYLE ---------------------------
+
 let g:dracula_colorterm = 0 
 syntax on
 color dracula
@@ -91,7 +122,7 @@ set t_Co=256
 set termguicolors
 set number
 set relativenumber
-
+set scl=yes  " leave space for sign column
 
 " KEYMAPS -----------------------------
 
@@ -99,10 +130,8 @@ set relativenumber
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
-let g:slime_no_mappings = 1 " remove default vim-slime mappings
-xmap <leader>sr <Plug>SlimeRegionSend
-nmap <leader>sr <Plug>SlimeParagraphSend
-nmap <c-c>v     <Plug>SlimeConfig
+xmap <leader>sr <Plug>(neoterm-repl-send)
+nmap <leader>sr <Plug>(neoterm-repl-send)
 
 " use escape to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
@@ -114,6 +143,12 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
+" telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 " open the file under the cursor using bash open
 fu OpenFile()
    let l:file = expand('<cfile>')
@@ -122,15 +157,20 @@ endfu
 
 nmap <leader>of :call OpenFile()<CR>
 
+" movement between windows
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" git commands
+nnoremap <leader>gs :G<CR>
+
 " other settings ------------------
 set nocompatible 
-
-" turn mouse on
-set mouse=a
-
+set mouse=a " turn mouse on
 filetype plugin on
-" fix indents
-filetype plugin indent on
+filetype plugin indent on " fix indents
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
@@ -141,6 +181,4 @@ set expandtab
 set autoindent
 set smartindent
 
-" leave space for sign column
-set scl=yes
 

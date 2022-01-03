@@ -133,6 +133,9 @@ let maplocalleader = "\<Space>"
 xmap <leader>sr <Plug>(neoterm-repl-send)
 nmap <leader>sr <Plug>(neoterm-repl-send)
 
+" if python, send file to python repl
+autocmd FileType python nnoremap <leader>sf :T python %<CR>
+
 " use escape to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
 
@@ -148,6 +151,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 
 " open the file under the cursor using bash open
 fu OpenFile()

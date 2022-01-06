@@ -186,5 +186,7 @@ set expandtab
 " indenting
 set autoindent
 set smartindent
+" use system clipboard
+set clipboard+=unnamedplus
 
 

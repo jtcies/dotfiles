@@ -21,6 +21,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     "sql
     Plug 'tpope/vim-dadbod'
+    Plug 'kristijanhusak/vim-dadbod-ui'
+    Plug 'kristijanhusak/vim-dadbod-completion'
 
     " git
     Plug 'tpope/vim-fugitive'

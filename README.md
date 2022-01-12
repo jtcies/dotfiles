@@ -14,5 +14,6 @@
 
 3. make sure to install required packages
 
+    - `jedi-language-server`
     - `pynvim`
 

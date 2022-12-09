@@ -34,3 +34,4 @@ export TERM=xterm-256color # to work with tmux
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

@@ -1,6 +1,12 @@
-# documentation for using dotfiles and setting up environments
+## dotfiles
 
-## Info on how to use `pyenv` for managin virtual environments
+### tools used
+
+* dotfile management: [yadm](https://yadm.io/)
+* neovim packages
+* python environments: [pyenv](https://github.com/pyenv/pyenv)
+
+### setting up dotfiles on new computer
 
 ### starting a new project
 
@@ -11,8 +17,4 @@
 2. put the name of the virtual environment in `.python-version`
 
 `echo [name] >> .python-version`
-
-3. make sure to install required packages
-
-    - `pynvim`
 

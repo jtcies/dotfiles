@@ -4,6 +4,7 @@
 
 * dotfile management: [yadm](https://yadm.io/)
 * neovim packages
+    * package manager: [pakcer](https://github.com/wbthomason/packer.nvim)
 * python environments: [pyenv](https://github.com/pyenv/pyenv)
 
 ### setting up dotfiles on new computer

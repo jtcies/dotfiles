@@ -12,7 +12,6 @@ end
 
 
 vim.g.mapleader = ' '
-
-
 map('t', '<Esc>', '<C-\\><C-n>')  -- exit terminal mode with escape
+map('n', '<leader>fe', ':Ex <cr>')
 

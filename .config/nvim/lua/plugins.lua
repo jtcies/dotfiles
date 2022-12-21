@@ -58,4 +58,6 @@ return require('packer').startup(function(use)
         end
     }
 
+    use 'kassio/neoterm'
+
 end)

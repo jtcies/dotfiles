@@ -6,7 +6,7 @@ lsp.ensure_installed({
     'tsserver',
     'eslint',
     'sumneko_lua',
-    'pylsp'
+    'pylsp',
 })
 
 -- Fix Undefined global 'vim'
@@ -31,8 +31,26 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 
 lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
+    mapping = cmp_mappings,
+    sources = {
+        {
+            name = 'buffer',
+            option = {
+                get_bufnrs = function()
+                    return vim.api.nvim_list_bufs()
+                end
+            },
+        },
+        { name = 'path' }
+    }
 })
+
+cmp.setup.filetype('sql', {
+    sources = cmp.config.sources({
+      { name = 'vim-dadbod-completion' },
+  })
+})
+
 
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}

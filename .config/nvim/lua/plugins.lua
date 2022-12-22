@@ -3,10 +3,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- themes
-    use {
-        'dracula/vim',
-        as = 'dracula',
-    }
+    use 'Mofiqul/dracula.nvim'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -58,6 +55,11 @@ return require('packer').startup(function(use)
         end
     }
 
+    --terminal
     use 'kassio/neoterm'
+
+    -- sql
+    use 'tpope/vim-dadbod'
+    use 'kristijanhusak/vim-dadbod-completion'
 
 end)

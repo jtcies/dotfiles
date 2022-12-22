@@ -1,4 +1,3 @@
-vim.g.dracula_colorterm = 0
 vim.cmd("colorscheme dracula")
 vim.opt.number = true
 vim.opt.relativenumber = true

@@ -33,6 +33,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnp' },
         {
             name = 'buffer',
             option = {
@@ -41,7 +43,8 @@ lsp.setup_nvim_cmp({
                 end
             },
         },
-        { name = 'path' }
+        { name = 'path' },
+        { name = 'nvim_lua' },
     }
 })
 
@@ -49,6 +52,24 @@ cmp.setup.filetype('sql', {
     sources = cmp.config.sources({
       { name = 'vim-dadbod-completion' },
   })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
 })
 
 

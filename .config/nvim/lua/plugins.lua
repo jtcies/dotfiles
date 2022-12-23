@@ -44,7 +44,6 @@ return require('packer').startup(function(use)
 
     -- Git related plugins
     use 'tpope/vim-fugitive'
-    use 'tpope/vim-rhubarb'
     use 'lewis6991/gitsigns.nvim'
 
     use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines

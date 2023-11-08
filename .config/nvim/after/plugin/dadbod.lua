@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd(
   "FileType",
   { pattern = { "sql" },
   command = [[
-    let b:db = g:dev
+    let b:db = ''
     vnoremap <leader>r :DB b:db<CR>
     ]]
 }

@@ -5,12 +5,12 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'tsserver',
     'eslint',
-    'sumneko_lua',
+    'lua_ls',
     'pylsp',
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -19,6 +19,8 @@ lsp.configure('sumneko_lua', {
         }
     }
 })
+
+------------- completion -----------------
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -72,6 +74,7 @@ cmp.setup.cmdline(':', {
     })
 })
 
+--------- lsp ----------------------
 
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}

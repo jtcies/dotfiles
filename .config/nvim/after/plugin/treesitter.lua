@@ -1,6 +1,9 @@
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "help", "python", "javascript", "typescript", "r"},
+  ensure_installed = {
+      "lua", "help", "python", "javascript",
+      "typescript", "r", "sql"
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -27,4 +30,7 @@ require'nvim-treesitter.configs'.setup {
           node_decremental = '<S-TAB>',
       },
   },
+  indent = {
+      enable = true
+  }
 }

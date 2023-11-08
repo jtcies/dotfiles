@@ -35,6 +35,7 @@ return require('packer').startup(function(use)
             {'saadparwaiz1/cmp_luasnip'},
             {'hrsh7th/cmp-nvim-lsp'},
             {'hrsh7th/cmp-nvim-lua'},
+            {'hrsh7th/cmp-cmdline'},
 
             -- Snippets
             {'L3MON4D3/LuaSnip'},
@@ -60,5 +61,8 @@ return require('packer').startup(function(use)
     -- sql
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-completion'
+
+    --formatting
+    use 'sbdchd/neoformat'
 
 end)

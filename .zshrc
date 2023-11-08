@@ -15,7 +15,7 @@ ZSH_THEME="dracula"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions zsh-kubectl-prompt)
 
 alias r="/Library/Frameworks/R.framework/Versions/Current/Resources/bin/R"
 
@@ -29,8 +29,6 @@ fi
 export PATH="$PATH:/Users/jtcies/.local/bin"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 eval "$(pyenv virtualenv-init -)"
-
-export TERM=xterm-256color # to work with tmux
 
 source $ZSH/oh-my-zsh.sh
 

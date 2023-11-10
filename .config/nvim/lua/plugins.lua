@@ -6,7 +6,7 @@ return require('packer').startup(function(use)
     use 'Mofiqul/dracula.nvim'
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        requires = { 'kyazdani42/nvim-web-devicons' }
     }
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
@@ -40,6 +40,7 @@ return require('packer').startup(function(use)
             -- Snippets
             {'L3MON4D3/LuaSnip'},
             {'rafamadriz/friendly-snippets'},
+
         }
     }
 
@@ -63,6 +64,6 @@ return require('packer').startup(function(use)
     use 'kristijanhusak/vim-dadbod-completion'
 
     --formatting
-    use 'sbdchd/neoformat'
+    use 'mhartington/formatter.nvim'
 
 end)

@@ -1,6 +1,4 @@
 
-require('lualine').setup()
-
 require('lualine').setup {
   options = {
     theme = 'dracula',
@@ -8,3 +6,5 @@ require('lualine').setup {
     component_separators = ''
   }
 }
+
+require'nvim-web-devicons'.setup{}

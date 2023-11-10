@@ -1,4 +1,5 @@
 local lsp = require("lsp-zero")
+local lspconfig = require("lspconfig")
 
 lsp.preset("recommended")
 
@@ -6,7 +7,7 @@ lsp.ensure_installed({
     'tsserver',
     'eslint',
     'lua_ls',
-    'pylsp',
+    'pyright',
 })
 
 -- Fix Undefined global 'vim'
@@ -79,11 +80,6 @@ cmp.setup.cmdline(':', {
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
 
-    if client.name == "eslint" then
-        vim.cmd.LspStop('eslint')
-        return
-    end
-
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
@@ -105,5 +101,14 @@ vim.diagnostic.config({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- leave this at the end
+lsp.configure('pyright', {
+    root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname)
+    end
+})
+
 lsp.setup()
+
+
+
+

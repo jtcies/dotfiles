@@ -44,6 +44,10 @@ return require('packer').startup(function(use)
         }
     }
 
+    use 'mfussenegger/nvim-lint' --linting
+    --formatting
+    use 'mhartington/formatter.nvim'
+
     -- Git related plugins
     use 'tpope/vim-fugitive'
     use 'lewis6991/gitsigns.nvim'
@@ -63,7 +67,6 @@ return require('packer').startup(function(use)
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-completion'
 
-    --formatting
-    use 'mhartington/formatter.nvim'
+    use "windwp/nvim-autopairs"
 
 end)

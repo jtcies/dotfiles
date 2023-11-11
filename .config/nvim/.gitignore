@@ -1,2 +1,2 @@
 plugin/packer_compiled.lua
-plugin/after/dburls.lua
+after/plugin/dburls.lua

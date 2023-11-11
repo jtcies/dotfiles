@@ -5,7 +5,6 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
     'tsserver',
-    'eslint',
     'lua_ls',
     'pyright',
 })
@@ -19,6 +18,12 @@ lsp.configure('lua_ls', {
             }
         }
     }
+})
+
+lsp.configure('pyright', {
+    root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname)
+    end
 })
 
 ------------- completion -----------------
@@ -101,11 +106,6 @@ vim.diagnostic.config({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lsp.configure('pyright', {
-    root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname)
-    end
-})
 
 lsp.setup()
 

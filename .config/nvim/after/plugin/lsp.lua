@@ -1,5 +1,6 @@
 local lsp = require("lsp-zero")
 local lspconfig = require("lspconfig")
+local configs = require 'lspconfig.configs'
 
 lsp.preset("recommended")
 
@@ -20,11 +21,37 @@ lsp.configure('lua_ls', {
     }
 })
 
+-- fix root dir issue on python
 lsp.configure('pyright', {
     root_dir = function(fname)
         return lspconfig.util.find_git_ancestor(fname)
     end
 })
+
+
+-- enable language server for dbt
+vim.tbl_deep_extend('keep', lspconfig, {
+	lsp_name = {
+		cmd = { "dbt-language-server", "--stdio" },
+		filetypes = { "sql" },
+		name = 'dbtls',
+	}
+})
+
+
+if not configs.dbtls then
+    configs.dbtls = {
+        default_config = {
+            root_dir = lspconfig.util.root_pattern('.git'),
+            cmd = { 'dbt-language-server', '--stdio' },
+            filetypes = { "sql" },
+            init_options = { pythonInfo = { path = 'python' }, lspMode = 'dbtProject', enableSnowflakeSyntaxCheck = true }
+        },
+    }
+end
+
+lsp.configure('dbtls', {force_setup = true})
+
 
 ------------- completion -----------------
 
@@ -58,8 +85,8 @@ lsp.setup_nvim_cmp({
 
 cmp.setup.filetype('sql', {
     sources = cmp.config.sources({
-      { name = 'vim-dadbod-completion' },
-  })
+        { name = 'vim-dadbod-completion' },
+    })
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -76,8 +103,8 @@ cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
-        { name = 'cmdline' }
-    })
+            { name = 'cmdline' }
+        })
 })
 
 --------- lsp ----------------------
@@ -106,9 +133,4 @@ vim.diagnostic.config({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-
 lsp.setup()
-
-
-
-

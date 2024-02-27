@@ -1,1 +1,1 @@
-vim.g.neoterm_default_mod='vertical botright'
+vim.g.neoterm_use_relative_path=1

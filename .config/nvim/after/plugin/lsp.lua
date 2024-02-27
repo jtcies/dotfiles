@@ -1,7 +1,6 @@
 local lsp = require("lsp-zero")
 local lspconfig = require("lspconfig")
-local configs = require 'lspconfig.configs'
-
+local configs = require('lspconfig.configs')
 lsp.preset("recommended")
 
 lsp.ensure_installed({
@@ -29,20 +28,11 @@ lsp.configure('pyright', {
 })
 
 
--- enable language server for dbt
-vim.tbl_deep_extend('keep', lspconfig, {
-	lsp_name = {
-		cmd = { "dbt-language-server", "--stdio" },
-		filetypes = { "sql" },
-		name = 'dbtls',
-	}
-})
-
 
 if not configs.dbtls then
     configs.dbtls = {
         default_config = {
-            root_dir = lspconfig.util.root_pattern('.git'),
+            root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
             cmd = { 'dbt-language-server', '--stdio' },
             filetypes = { "sql" },
             init_options = { pythonInfo = { path = 'python' }, lspMode = 'dbtProject', enableSnowflakeSyntaxCheck = true }
